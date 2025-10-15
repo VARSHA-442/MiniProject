@@ -1,55 +1,67 @@
+// 
+
 package com.thomas.travels;
 
-public class Driver {
-	private String category;
-	
-	private int driverId;
-	private String driverName;
-	private double totalDistance;
-	
-	public Driver() {
-		
-	}
+public class Driver implements Comparable<Driver> {
+    private String category;
+    private int driverId;
+    private String driverName;
+    private double totalDistance;
 
-	public Driver( int driverId,String category, String driverName, double totalDistance) {
-		this.driverId = driverId;
-		this.category = category;	
-		this.driverName = driverName;
-		this.totalDistance = totalDistance;
-	}
+    public Driver() {}
 
-	public String getCategory() {
-		return category;
-	}
+    public Driver(int driverId, String category, String driverName, double totalDistance) {
+        this.driverId = driverId;
+        this.category = category;
+        this.driverName = driverName;
+        setTotalDistance(totalDistance); // Uses setter for validation
+    }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    public String getCategory() {
+        return category;
+    }
 
-	public int getDriverId() {
-		return driverId;
-	}
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-	public void setDriverId(int driverId) {
-		this.driverId = driverId;
-	}
+    public int getDriverId() {
+        return driverId;
+    }
 
-	public String getDriverName() {
-		return driverName;
-	}
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
+    }
 
-	public void setDriverName(String driverName) {
-		this.driverName = driverName;
-	}
+    public String getDriverName() {
+        return driverName;
+    }
 
-	public double getTotalDistance() {
-		return totalDistance;
-	}
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
+    }
 
-	public void setTotalDistance(double totalDistance) {
-		this.totalDistance = totalDistance;
-	}
-	
-	
+    public double getTotalDistance() {
+        return totalDistance;
+    }
 
+    public void setTotalDistance(double totalDistance) {
+        if (totalDistance < 0) {
+            throw new IllegalArgumentException("Distance cannot be negative");
+        }
+        this.totalDistance = totalDistance;
+    }
+
+    // Override toString() for better printing
+    @Override
+    public String toString() {
+        return "Driver [ID=" + driverId + ", Name=" + driverName +
+               ", Category=" + category + ", Distance=" + totalDistance + "]";
+    }
+
+    // Implement comparison based on totalDistance (descending)
+    @Override
+    public int compareTo(Driver other) {
+        return Double.compare(other.totalDistance, this.totalDistance);
+    }
 }
